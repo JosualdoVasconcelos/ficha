@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FICHA DE INFORMAÇÕES – Josualdo Vasconcelos Advocacia</title>
+<meta name="description" content="Escritório Josualdo Vasconcelos – Advocacia. Preencha a ficha com seus dados e envie pelo WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Josualdo Vasconcelos – Advocacia">
+<meta property="og:title" content="FICHA DE INFORMAÇÕES">
+<meta property="og:description" content="Escritório Josualdo Vasconcelos – Advocacia · OAB/PE 58.977. Toque para preencher.">
+<meta property="og:url" content="https://josualdovasconcelos.github.io/ficha/">
+<meta property="og:image" content="https://josualdovasconcelos.github.io/ficha/preview.jpg">
+<meta property="og:image:secure_url" content="https://josualdovasconcelos.github.io/ficha/preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo.jpg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: coluna única de leitura (ficha de escritório), seções numeradas na ordem do atendimento, barra fixa de envio no rodapé */
+:root{
+  --bg:#f4f5f8; --paper:#ffffff; --ink:#16203a; --muted:#5a6276; --line:#d9dde7;
+  --accent:#1c2f5e; --accent-ink:#ffffff; --soft:#e6eaf3; --gold:#c39a2e; --warn:#9a5b07; --warn-bg:#fdf3e2; --err:#b3261e;
+  --wa:#1b8a4a;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1220; --paper:#161b2c; --ink:#e4e8f2; --muted:#a0a8bd; --line:#2a3148;
+  --accent:#d6b356; --accent-ink:#121625; --soft:#20263b; --gold:#d6b356; --warn:#f0b65a; --warn-bg:#2a2214; --err:#ff8a80; --wa:#45c47a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1220; --paper:#161b2c; --ink:#e4e8f2; --muted:#a0a8bd; --line:#2a3148;
+  --accent:#d6b356; --accent-ink:#121625; --soft:#20263b; --gold:#d6b356; --warn:#f0b65a; --warn-bg:#2a2214; --err:#ff8a80; --wa:#45c47a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding-block:28px 140px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{display:grid;gap:12px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{display:flex;gap:14px;align-items:center}
+.brand img{width:64px;height:64px;border-radius:50%;flex:none;box-shadow:0 0 0 2px var(--gold)}
+.brand div{display:grid;line-height:1.25}
+.brand strong{font-family:var(--f-display);font-size:19px;letter-spacing:.02em}
+.brand span{font-size:13px;color:var(--muted)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(28px,6vw,38px);line-height:1.1;margin:0;text-wrap:balance}
+.lead{color:var(--muted);margin:0;max-width:62ch}
+.how{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted);margin:4px 0 0;padding:0;list-style:none}
+.how b{color:var(--ink)}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:16px}
+section.card h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+section.card h2 .n{font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--accent);min-width:1.6em}
+.sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+.grid{display:grid;gap:14px 16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid .full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:minmax(0,1fr)}}
+.field{display:grid;gap:6px;min-width:0}
+label,.lbl{font-size:14px;font-weight:600}
+.req::after{content:" *";color:var(--err)}
+.hint{font-size:13px;color:var(--muted);font-weight:400}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+  width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:11px 12px;min-height:46px}
+textarea{min-height:150px;resize:vertical;line-height:1.55}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,.chip input:focus-visible+span{outline:3px solid color-mix(in srgb,var(--accent) 45%,transparent);outline-offset:1px;border-color:var(--accent)}
+.invalid{border-color:var(--err)!important}
+.err{color:var(--err);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chip span{display:inline-block;padding:8px 12px;border:1px solid var(--line);border-radius:999px;font-size:14px;background:var(--bg);user-select:none}
+.chip input:checked+span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.note{background:var(--warn-bg);color:var(--ink);border-left:3px solid var(--warn);padding:10px 12px;border-radius:6px;font-size:14px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.consent input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--accent)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);
+  padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:5}
+.bar .in{max-width:760px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.prog{font-size:13px;color:var(--muted);display:grid;gap:5px;flex:1 1 180px;min-width:0}
+.prog .track{height:6px;background:var(--soft);border-radius:4px;overflow:hidden}
+.prog .fill{height:100%;background:var(--accent);width:0;transition:width .25s}
+button{font:inherit;font-weight:600;border-radius:8px;padding:12px 18px;min-height:46px;cursor:pointer;border:1px solid transparent}
+.primary{background:var(--wa);color:#fff}
+.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.review{display:none}
+.review.on{display:block}
+pre.msg{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;font-size:14px;max-height:340px;overflow:auto;font-family:var(--f-body)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+a.btn{display:inline-flex;align-items:center;text-decoration:none;border-radius:8px;padding:12px 18px;min-height:46px;font-weight:600}
+.ok{color:var(--accent);font-size:14px}
+footer.sig{color:var(--muted);font-size:13px;text-align:left;margin-top:24px;display:grid;gap:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head><body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><img src="logo.jpg" alt="Logotipo JV – Josualdo Vasconcelos, Escritório de Advocacia" width="64" height="64"><div><strong>Josualdo Vasconcelos</strong><span>Escritório de Advocacia · OAB/PE 58.977</span></div></div>
+    <h1>Ficha de Informações</h1>
+    <p class="lead">Preencha com calma, do jeito que você lembrar. Estas informações ajudam o advogado a analisar seu caso antes da conversa. Os campos com <span style="color:var(--err)">*</span> são obrigatórios.</p>
+    <ul class="how">
+      <li><b>1.</b> Preencha a ficha</li>
+      <li><b>2.</b> Toque em “Revisar e enviar”</li>
+      <li><b>3.</b> Envie pelo WhatsApp</li>
+    </ul>
+  </header>
+
+  <form id="f" novalidate>
+    <section class="card" data-sec>
+      <h2><span class="n">01</span>Seus dados</h2>
+      <p class="sub">Como aparecem nos seus documentos.</p>
+      <div class="grid">
+        <div class="field full"><label class="req" for="nome">Nome completo</label><input id="nome" name="Nome" type="text" autocomplete="name" required></div>
+        <div class="field"><label class="req" for="cpf">CPF</label><input id="cpf" name="CPF" type="text" inputmode="numeric" placeholder="000.000.000-00" required data-mask="cpf"></div>
+        <div class="field"><label for="rg">RG e órgão emissor</label><input id="rg" name="RG" type="text" placeholder="0.000.000 SDS/PE"></div>
+        <div class="field"><label class="req" for="nasc">Data de nascimento</label><input id="nasc" name="Nascimento" type="date" required></div>
+        <div class="field"><label for="civil">Estado civil</label>
+          <select id="civil" name="Estado civil"><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>União estável</option><option>Divorciado(a)</option><option>Viúvo(a)</option></select></div>
+        <div class="field full"><label for="mae">Nome da mãe</label><input id="mae" name="Nome da mãe" type="text"></div>
+        <div class="field"><label for="pis">PIS/NIS</label><input id="pis" name="PIS" type="text" inputmode="numeric"><span class="hint">Está na carteira de trabalho ou no app Carteira Digital.</span></div>
+        <div class="field"><label for="ctps">Carteira de trabalho (nº e série)</label><input id="ctps" name="CTPS" type="text" placeholder="Ou “digital”"></div>
+        <div class="field full"><label class="req" for="end">Endereço completo</label><input id="end" name="Endereço" type="text" autocomplete="street-address" placeholder="Rua, número, complemento, bairro, cidade/UF" required></div>
+        <div class="field"><label for="cep">CEP</label><input id="cep" name="CEP" type="text" inputmode="numeric" placeholder="00000-000" data-mask="cep"></div>
+        <div class="field"><label class="req" for="fone">WhatsApp / telefone</label><input id="fone" name="Telefone" type="tel" autocomplete="tel" placeholder="(81) 90000-0000" required data-mask="fone"></div>
+        <div class="field full"><label for="email">E-mail</label><input id="email" name="E-mail" type="email" autocomplete="email"></div>
+        <div class="field"><label for="sit">Situação hoje</label>
+          <select id="sit" name="Situação atual"><option value="">Selecione</option><option>Desempregado(a)</option><option>Trabalhando em outra empresa</option><option>Ainda trabalho nesta empresa</option><option>Afastado(a) pelo INSS</option><option>Aposentado(a)</option></select></div>
+        <div class="field"><label for="renda">Renda atual da família (aprox.)</label><input id="renda" name="Renda familiar" type="text" inputmode="numeric" placeholder="R$" data-mask="money"><span class="hint">Usada para o pedido de justiça gratuita.</span></div>
+      </div>
+    </section>
+
+    <section class="card" data-sec>
+      <h2><span class="n">02</span>A empresa</h2>
+      <p class="sub">Se não souber algum dado, deixe em branco.</p>
+      <div class="grid">
+        <div class="field full"><label class="req" for="emp">Nome da empresa</label><input id="emp" name="Empresa" type="text" placeholder="Nome que aparece na carteira ou no contracheque" required></div>
+        <div class="field"><label for="cnpj">CNPJ</label><input id="cnpj" name="CNPJ" type="text" inputmode="numeric" placeholder="00.000.000/0000-00" data-mask="cnpj"></div>
+        <div class="field"><label for="ativa">A empresa ainda funciona?</label>
+          <select id="ativa" name="Empresa ativa"><option value="">Não sei</option><option>Sim</option><option>Não, fechou</option></select></div>
+        <div class="field full"><label for="empend">Endereço da empresa</label><input id="empend" name="Endereço da empresa" type="text"></div>
+        <div class="field full"><label for="dono">Dono, sócio ou responsável que você conhece</label><input id="dono" name="Responsável/sócio" type="text" placeholder="Nome e, se souber, cargo"></div>
+        <div class="field full"><label for="tomador">Você trabalhava dentro de outra empresa ou órgão?</label><input id="tomador" name="Tomador de serviço" type="text" placeholder="Ex.: terceirizado no hospital X, na prefeitura Y"><span class="hint">Comum em terceirização: limpeza, vigilância, portaria, saúde.</span></div>
+      </div>
+    </section>
+
+    <section class="card" data-sec>
+      <h2><span class="n">03</span>O contrato de trabalho</h2>
+      <div class="grid">
+        <div class="field"><label class="req" for="adm">Data de entrada</label><input id="adm" name="Admissão" type="date" required></div>
+        <div class="field"><label for="saida">Data de saída</label><input id="saida" name="Saída" type="date"><span class="hint">Deixe em branco se ainda trabalha lá.</span></div>
+        <div id="prazo" class="note full" hidden></div>
+        <div class="field"><label class="req" for="cart">Carteira assinada?</label>
+          <select id="cart" name="Carteira assinada" required><option value="">Selecione</option><option>Sim, todo o período</option><option>Só parte do período</option><option>Não foi assinada</option></select></div>
+        <div class="field"><label class="req" for="funcao">Função / cargo</label><input id="funcao" name="Função" type="text" required></div>
+        <div class="field"><label class="req" for="sal">Último salário</label><input id="sal" name="Último salário" type="text" inputmode="numeric" placeholder="R$" required data-mask="money"></div>
+        <div class="field"><label for="porfora">Recebia algum valor “por fora”?</label><input id="porfora" name="Pagamento por fora" type="text" inputmode="numeric" placeholder="R$ por mês (se houver)" data-mask="money"></div>
+        <div class="field full"><span class="lbl">Jornada</span>
+          <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
+            <div class="field"><label for="ent" class="hint">Entrava às</label><input id="ent" name="Entrada" type="text" placeholder="07:00"></div>
+            <div class="field"><label for="sai" class="hint">Saía às</label><input id="sai" name="Saída do expediente" type="text" placeholder="17:00"></div>
+            <div class="field"><label for="dias" class="hint">Dias por semana</label><input id="dias" name="Dias/semana" type="text" inputmode="numeric" placeholder="6"></div>
+            <div class="field"><label for="intv" class="hint">Intervalo de almoço</label><input id="intv" name="Intervalo" type="text" placeholder="30 min"></div>
+          </div></div>
+        <div class="field"><label for="ponto">Batia ponto?</label>
+          <select id="ponto" name="Controle de ponto"><option value="">Selecione</option><option>Sim, ponto eletrônico/digital</option><option>Sim, folha de ponto em papel</option><option>Não batia ponto</option><option>Batia, mas não podia marcar a hora real</option></select></div>
+        <div class="field"><label for="he">Horas extras eram pagas?</label>
+          <select id="he" name="Horas extras pagas"><option value="">Selecione</option><option>Não fazia hora extra</option><option>Sim, todas</option><option>Só parte</option><option>Não eram pagas</option><option>Banco de horas</option></select></div>
+        <div class="field full"><span class="lbl">No trabalho você tinha contato com:</span>
+          <div class="chips" data-group="Condições do trabalho">
+            <label class="chip"><input type="checkbox" value="Trabalho noturno (22h às 5h)"><span>Trabalho à noite</span></label>
+            <label class="chip"><input type="checkbox" value="Produtos químicos / limpeza pesada"><span>Produtos químicos</span></label>
+            <label class="chip"><input type="checkbox" value="Lixo / material biológico / hospital"><span>Lixo ou material de hospital</span></label>
+            <label class="chip"><input type="checkbox" value="Ruído / calor / frio excessivo"><span>Barulho, calor ou frio</span></label>
+            <label class="chip"><input type="checkbox" value="Eletricidade / inflamáveis / vigilância armada / moto"><span>Eletricidade, inflamáveis, vigilância ou moto</span></label>
+            <label class="chip"><input type="checkbox" value="Recebia EPI (equipamento de proteção)"><span>Recebia EPI</span></label>
+          </div></div>
+      </div>
+    </section>
+
+    <section class="card" data-sec>
+      <h2><span class="n">04</span>A saída da empresa</h2>
+      <div class="grid">
+        <div class="field full"><label class="req" for="motivo">Como terminou o contrato?</label>
+          <select id="motivo" name="Forma de saída" required><option value="">Selecione</option><option>Fui demitido(a) sem justa causa</option><option>Fui demitido(a) por justa causa</option><option>Pedi demissão</option><option>Acordo com a empresa</option><option>Contrato com prazo acabou</option><option>Saí porque a empresa não cumpria o contrato</option><option>A empresa fechou / sumiu</option><option>Ainda trabalho lá</option></select></div>
+        <div class="field"><label for="aviso">Aviso prévio</label>
+          <select id="aviso" name="Aviso prévio"><option value="">Selecione</option><option>Trabalhei o aviso</option><option>Foi pago sem trabalhar (indenizado)</option><option>Não teve aviso</option><option>Não sei</option></select></div>
+        <div class="field"><label for="verbas">Recebeu a rescisão (acerto)?</label>
+          <select id="verbas" name="Recebeu rescisão"><option value="">Selecione</option><option>Sim, tudo</option><option>Recebi só uma parte</option><option>Não recebi nada</option><option>Não sei o que recebi</option></select></div>
+        <div class="field"><label for="fgts">O FGTS era depositado?</label>
+          <select id="fgts" name="FGTS depositado"><option value="">Selecione</option><option>Sim, todos os meses</option><option>Faltam meses</option><option>Nunca depositaram</option><option>Não sei</option></select><span class="hint">Confira no app FGTS da Caixa.</span></div>
+        <div class="field"><label for="seguro">Recebeu as guias do seguro-desemprego?</label>
+          <select id="seguro" name="Seguro-desemprego"><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Não se aplica</option></select></div>
+        <div class="field full"><span class="lbl">Aconteceu alguma destas situações?</span>
+          <div class="chips" data-group="Situações especiais">
+            <label class="chip"><input type="checkbox" value="Acidente de trabalho"><span>Acidente de trabalho</span></label>
+            <label class="chip"><input type="checkbox" value="Doença ligada ao trabalho"><span>Doença por causa do trabalho</span></label>
+            <label class="chip"><input type="checkbox" value="Afastamento pelo INSS"><span>Afastamento pelo INSS</span></label>
+            <label class="chip"><input type="checkbox" value="Gravidez durante o contrato ou aviso"><span>Gravidez</span></label>
+            <label class="chip"><input type="checkbox" value="Membro da CIPA ou dirigente sindical"><span>CIPA ou sindicato</span></label>
+            <label class="chip"><input type="checkbox" value="Humilhação / assédio / constrangimento"><span>Humilhação ou assédio</span></label>
+            <label class="chip"><input type="checkbox" value="Salário atrasado"><span>Salário atrasado</span></label>
+          </div></div>
+      </div>
+    </section>
+
+    <section class="card" data-sec>
+      <h2><span class="n">05</span>Sua história</h2>
+      <p class="sub">Conte com suas palavras. Não precisa ter linguagem jurídica.</p>
+      <div class="grid">
+        <div class="field full"><label class="req" for="hist">Como era o seu trabalho do começo ao fim?</label>
+          <textarea id="hist" name="Histórico do trabalho" required placeholder="Como foi contratado, o que fazia no dia a dia, quem mandava em você, se mudou de função, como era o horário de verdade, como foi a saída…"></textarea></div>
+        <div class="field full"><span class="lbl">O que você acha que ficou faltando?</span>
+          <div class="chips" data-group="Pontos a reclamar">
+            <label class="chip"><input type="checkbox" value="Verbas da rescisão"><span>Rescisão / acerto</span></label>
+            <label class="chip"><input type="checkbox" value="Horas extras"><span>Horas extras</span></label>
+            <label class="chip"><input type="checkbox" value="Intervalo de almoço"><span>Intervalo de almoço</span></label>
+            <label class="chip"><input type="checkbox" value="FGTS e multa de 40%"><span>FGTS e multa</span></label>
+            <label class="chip"><input type="checkbox" value="Assinatura da carteira"><span>Carteira assinada</span></label>
+            <label class="chip"><input type="checkbox" value="Férias"><span>Férias</span></label>
+            <label class="chip"><input type="checkbox" value="13º salário"><span>13º salário</span></label>
+            <label class="chip"><input type="checkbox" value="Adicional de insalubridade / periculosidade"><span>Insalubridade / periculosidade</span></label>
+            <label class="chip"><input type="checkbox" value="Adicional noturno"><span>Adicional noturno</span></label>
+            <label class="chip"><input type="checkbox" value="Diferença salarial / desvio de função"><span>Diferença de salário ou função</span></label>
+            <label class="chip"><input type="checkbox" value="Danos morais"><span>Danos morais</span></label>
+          </div></div>
+        <div class="field full"><label for="recl">O que você quer reclamar?</label>
+          <textarea id="recl" name="O que quer reclamar" placeholder="Explique o que você acha que a empresa ficou devendo ou fez de errado."></textarea></div>
+        <div class="field full"><label for="test">Testemunhas</label>
+          <textarea id="test" name="Testemunhas" style="min-height:90px" placeholder="Nome e telefone de colegas que viram o que aconteceu (de preferência quem já saiu da empresa)."></textarea></div>
+      </div>
+    </section>
+
+    <section class="card" data-sec>
+      <h2><span class="n">06</span>Documentos que você tem</h2>
+      <p class="sub">Marque o que tiver guardado. O advogado vai pedir as cópias depois.</p>
+      <div class="chips" data-group="Documentos disponíveis">
+        <label class="chip"><input type="checkbox" value="Carteira de trabalho"><span>Carteira de trabalho</span></label>
+        <label class="chip"><input type="checkbox" value="Contracheques"><span>Contracheques</span></label>
+        <label class="chip"><input type="checkbox" value="Termo de rescisão (TRCT)"><span>Termo de rescisão</span></label>
+        <label class="chip"><input type="checkbox" value="Extrato do FGTS"><span>Extrato do FGTS</span></label>
+        <label class="chip"><input type="checkbox" value="Cartões / folhas de ponto"><span>Cartões de ponto</span></label>
+        <label class="chip"><input type="checkbox" value="Contrato de trabalho"><span>Contrato</span></label>
+        <label class="chip"><input type="checkbox" value="Mensagens de WhatsApp / e-mails"><span>Mensagens de WhatsApp</span></label>
+        <label class="chip"><input type="checkbox" value="Fotos / vídeos / áudios"><span>Fotos, vídeos ou áudios</span></label>
+        <label class="chip"><input type="checkbox" value="Atestados / laudos / CAT"><span>Atestados ou laudos</span></label>
+        <label class="chip"><input type="checkbox" value="Comprovante de residência"><span>Comprovante de residência</span></label>
+      </div>
+    </section>
+
+    <section class="card" data-sec>
+      <h2><span class="n">07</span>Confirmação</h2>
+      <div style="display:grid;gap:12px">
+        <label class="consent"><input id="verdade" type="checkbox" required><span>Declaro que as informações acima são verdadeiras, dentro do que eu lembro.</span></label>
+        <label class="consent"><input id="lgpd" type="checkbox" required><span>Autorizo o escritório do Dr. Josualdo Vasconcelos a usar estes dados só para analisar e conduzir o meu caso (LGPD, Lei 13.709/2018).</span></label>
+        <p id="formerr" class="err" hidden></p>
+      </div>
+    </section>
+
+    <section class="card review" id="review">
+      <h2><span class="n">✓</span>Revise e envie</h2>
+      <p class="sub">Confira o resumo. Se estiver certo, envie pelo WhatsApp. Se o WhatsApp não abrir, copie o texto e cole numa conversa com o número abaixo.</p>
+      <pre class="msg" id="msg"></pre>
+      <div class="actions">
+        <a class="btn primary" id="wa" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+        <button type="button" class="ghost" id="copy">Copiar texto</button>
+        <button type="button" class="ghost" id="edit">Corrigir respostas</button>
+      </div>
+      <p class="ok" id="copied" hidden>Texto copiado. Cole na conversa do WhatsApp com o escritório.</p>
+      <p class="hint" style="margin-top:10px">WhatsApp do escritório: <b id="num">(81) 98615-2457</b></p>
+    </section>
+  </form>
+
+  <footer class="sig">
+    <strong>JOSUALDO VASCONCELOS</strong>
+    <span>Advogado · OAB/PE 58.977</span>
+    <span>(81) 98615-2457</span>
+  </footer>
+</div>
+
+<div class="bar">
+  <div class="in">
+    <div class="prog"><span id="progtxt">0 de 7 partes preenchidas</span><div class="track"><div class="fill" id="fill"></div></div></div>
+    <button type="button" class="primary" id="go">Revisar e enviar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var WA = "5581986152457";
+  var f = document.getElementById("f");
+  var KEY = "ficha-trabalhista-rascunho";
+
+  // máscaras
+  function dig(v){return v.replace(/\D/g,"");}
+  var masks = {
+    cpf:function(v){v=dig(v).slice(0,11);return v.replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d{1,2})$/,"$1-$2");},
+    cnpj:function(v){v=dig(v).slice(0,14);return v.replace(/^(\d{2})(\d)/,"$1.$2").replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3").replace(/\.(\d{3})(\d)/,".$1/$2").replace(/(\d{4})(\d)/,"$1-$2");},
+    cep:function(v){v=dig(v).slice(0,8);return v.replace(/(\d{5})(\d)/,"$1-$2");},
+    fone:function(v){v=dig(v).slice(0,11);if(v.length<=10)return v.replace(/(\d{2})(\d)/,"($1) $2").replace(/(\d{4})(\d)/,"$1-$2");return v.replace(/(\d{2})(\d)/,"($1) $2").replace(/(\d{5})(\d)/,"$1-$2");},
+    money:function(v){v=dig(v).slice(0,10);if(!v)return "";var n=(parseInt(v,10)/100).toFixed(2).split(".");return "R$ "+n[0].replace(/\B(?=(\d{3})+(?!\d))/g,".")+","+n[1];}
+  };
+  f.querySelectorAll("[data-mask]").forEach(function(el){
+    el.addEventListener("input",function(){el.value=masks[el.dataset.mask](el.value);});
+  });
+
+  function cpfOk(c){c=dig(c);if(c.length!==11||/^(\d)\1+$/.test(c))return false;
+    for(var t=9;t<11;t++){var s=0;for(var i=0;i<t;i++)s+=c[i]*((t+1)-i);var d=((10*s)%11)%10;if(c[t]!=d)return false;}return true;}
+  function br(d){if(!d)return "";var p=d.split("-");return p[2]+"/"+p[1]+"/"+p[0];}
+
+  // prazo prescricional (aviso ao cliente)
+  var saidaEl=document.getElementById("saida"), prazo=document.getElementById("prazo");
+  function checkPrazo(){
+    if(!saidaEl.value){prazo.hidden=true;return;}
+    var s=new Date(saidaEl.value+"T12:00:00"), lim=new Date(s); lim.setFullYear(lim.getFullYear()+2);
+    var dias=Math.round((lim-new Date())/864e5);
+    if(dias<0){prazo.textContent="Atenção: já se passaram mais de 2 anos da saída. O prazo para entrar com a ação pode ter acabado. Envie mesmo assim: o advogado vai verificar.";prazo.hidden=false;}
+    else if(dias<=180){prazo.textContent="Atenção: o prazo de 2 anos para entrar com a ação termina em "+lim.toLocaleDateString("pt-BR")+". Envie a ficha o quanto antes.";prazo.hidden=false;}
+    else prazo.hidden=true;
+  }
+  saidaEl.addEventListener("change",checkPrazo);
+
+  // progresso
+  var secs=[].slice.call(document.querySelectorAll("[data-sec]"));
+  function progress(){
+    var n=0;secs.forEach(function(s){
+      var any=[].some.call(s.querySelectorAll("input,select,textarea"),function(el){return el.type==="checkbox"?el.checked:el.value.trim()!=="";});
+      if(any)n++;});
+    document.getElementById("progtxt").textContent=n+" de "+secs.length+" partes preenchidas";
+    document.getElementById("fill").style.width=(n/secs.length*100)+"%";
+  }
+
+  // rascunho no aparelho do cliente
+  function save(){try{var d={};f.querySelectorAll("input,select,textarea").forEach(function(el){if(!el.id&&el.type!=="checkbox")return;
+      var k=el.id||(el.closest("[data-group]").dataset.group+"|"+el.value);d[k]=el.type==="checkbox"?el.checked:el.value;});
+      localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}}
+  function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||"null");if(!d)return;
+      f.querySelectorAll("input,select,textarea").forEach(function(el){var k=el.id||(el.closest("[data-group]")?el.closest("[data-group]").dataset.group+"|"+el.value:null);
+        if(k&&k in d){if(el.type==="checkbox")el.checked=!!d[k];else el.value=d[k];}});}catch(e){}}
+  f.addEventListener("input",function(){progress();save();});
+  f.addEventListener("change",function(){progress();save();});
+  load();progress();checkPrazo();
+
+  // validação
+  function validate(){
+    var bad=[];
+    f.querySelectorAll("[required]").forEach(function(el){
+      var ok=el.type==="checkbox"?el.checked:el.value.trim()!=="";
+      if(el.id==="cpf"&&ok&&!cpfOk(el.value)){ok=false;}
+      el.classList.toggle("invalid",!ok);
+      if(!ok)bad.push(el);
+    });
+    var e=document.getElementById("formerr");
+    if(bad.length){
+      var cpfBad=bad.some(function(b){return b.id==="cpf"&&b.value.trim();});
+      e.textContent=(cpfBad?"O CPF parece estar errado. ":"")+"Faltam "+bad.length+" campo(s) obrigatório(s), marcados em vermelho.";
+      e.hidden=false;bad[0].focus();bad[0].scrollIntoView({block:"center"});return false;}
+    e.hidden=true;return true;
+  }
+
+  // monta a mensagem
+  function build(){
+    var L=["*FICHA DE INFORMAÇÕES*",""];
+    secs.forEach(function(s){
+      var title=s.querySelector("h2").textContent.replace(/^\d+/,"").trim();
+      if(title==="Confirmação")return;
+      var lines=[];
+      s.querySelectorAll("input:not([type=checkbox]),select,textarea").forEach(function(el){
+        var v=el.value.trim();if(!v)return;
+        if(el.type==="date")v=br(v);
+        lines.push(el.tagName==="TEXTAREA"?"*"+el.name+":*\n"+v:"*"+el.name+":* "+v);
+      });
+      s.querySelectorAll("[data-group]").forEach(function(g){
+        var c=[].slice.call(g.querySelectorAll("input:checked")).map(function(i){return i.value;});
+        if(c.length)lines.push("*"+g.dataset.group+":* "+c.join("; "));
+      });
+      if(lines.length){L.push("— "+title.toUpperCase()+" —");L=L.concat(lines);L.push("");}
+    });
+    if(!prazo.hidden)L.push("⚠ "+prazo.textContent,"");
+    L.push("Declaro que as informações são verdadeiras e autorizo o uso dos dados para análise do meu caso (LGPD).");
+    return L.join("\n");
+  }
+
+  var review=document.getElementById("review");
+  document.getElementById("go").addEventListener("click",function(){
+    if(!validate())return;
+    var txt=build();
+    document.getElementById("msg").textContent=txt;
+    document.getElementById("wa").href="https://wa.me/"+WA+"?text="+encodeURIComponent(txt);
+    review.classList.add("on");review.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("edit").addEventListener("click",function(){review.classList.remove("on");window.scrollTo({top:0,behavior:"smooth"});});
+  document.getElementById("copy").addEventListener("click",function(){
+    var txt=document.getElementById("msg").textContent, ok=document.getElementById("copied");
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById("msg"));var s=getSelection();s.removeAllRanges();s.addRange(r);
+      ok.textContent="Texto selecionado. Use “Copiar” do seu celular e cole no WhatsApp do escritório.";ok.hidden=false;}
+    try{navigator.clipboard.writeText(txt).then(function(){ok.textContent="Texto copiado. Cole na conversa do WhatsApp com o escritório.";ok.hidden=false;},sel);}catch(e){sel();}
+  });
+})();
+</script>
+</body></html>
