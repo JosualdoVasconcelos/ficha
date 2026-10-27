@@ -90,6 +90,13 @@ a.btn{display:inline-flex;align-items:center;text-decoration:none;border-radius:
 .ok{color:var(--accent);font-size:14px}
 footer.sig{color:var(--muted);font-size:13px;text-align:left;margin-top:24px;display:grid;gap:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.pdfcard{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.pdficon{width:44px;height:54px;border-radius:6px;background:#c62828;color:#fff;font-weight:700;font-size:12px;display:grid;place-items:center;flex:none}
+.pdfmeta{display:grid;min-width:0}.pdfmeta strong{overflow-wrap:anywhere}.pdfmeta span{font-size:13px;color:var(--muted)}
+button:disabled{opacity:.55;cursor:wait}
+details.alt{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+details.alt summary{cursor:pointer;font-size:14px;color:var(--muted);font-weight:600}
+a.btn.ghost{border:1px solid var(--line);color:var(--ink)}
 </style>
 </head><body>
 
@@ -257,15 +264,28 @@ footer.sig{color:var(--muted);font-size:13px;text-align:left;margin-top:24px;dis
     </section>
 
     <section class="card review" id="review">
-      <h2><span class="n">✓</span>Revise e envie</h2>
-      <p class="sub">Confira o resumo. Se estiver certo, envie pelo WhatsApp. Se o WhatsApp não abrir, copie o texto e cole numa conversa com o número abaixo.</p>
-      <pre class="msg" id="msg"></pre>
+      <h2><span class="n">✓</span>Envie sua ficha</h2>
+      <p class="sub">Sua ficha foi gerada em PDF, com todos os dados que você informou. Toque no botão verde, escolha o <b>WhatsApp</b> e depois a conversa do escritório <b>Josualdo Vasconcelos – (81) 98615-2457</b>.</p>
+      <div class="pdfcard">
+        <div class="pdficon" aria-hidden="true">PDF</div>
+        <div class="pdfmeta"><strong id="pdfname">Ficha_de_Informacoes.pdf</strong><span id="pdfinfo">Gerando…</span></div>
+      </div>
       <div class="actions">
-        <a class="btn primary" id="wa" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
-        <button type="button" class="ghost" id="copy">Copiar texto</button>
+        <button type="button" class="primary" id="sendpdf" disabled>Enviar ficha (PDF) pelo WhatsApp</button>
+        <button type="button" class="ghost" id="dlpdf" disabled>Baixar o PDF</button>
         <button type="button" class="ghost" id="edit">Corrigir respostas</button>
       </div>
-      <p class="ok" id="copied" hidden>Texto copiado. Cole na conversa do WhatsApp com o escritório.</p>
+      <p class="ok" id="st" hidden></p>
+      <details class="alt">
+        <summary>Não conseguiu enviar o PDF?</summary>
+        <p class="hint">Baixe o PDF acima e anexe na conversa do escritório pelo clipe 📎 do WhatsApp. Se preferir, envie as respostas como texto:</p>
+        <pre class="msg" id="msg"></pre>
+        <div class="actions">
+          <a class="btn ghost" id="wa" href="#" target="_blank" rel="noopener">Enviar como texto</a>
+          <button type="button" class="ghost" id="copy">Copiar texto</button>
+        </div>
+        <p class="ok" id="copied" hidden>Texto copiado. Cole na conversa do WhatsApp com o escritório.</p>
+      </details>
       <p class="hint" style="margin-top:10px">WhatsApp do escritório: <b id="num">(81) 98615-2457</b></p>
     </section>
   </form>
@@ -397,4 +417,148 @@ footer.sig{color:var(--muted);font-size:13px;text-align:left;margin-top:24px;dis
   });
 })();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+  var OFF={nome:"JOSUALDO VASCONCELOS",sub:"Escritório de Advocacia · OAB/PE 58.977",end:"Av. Aurora Messias, 342 – Janga, Paulista/PE · CEP 53439-370",fone:"(81) 98615-2457",email:"advogado.josualdovasconcelos@gmail.com"};
+  var NAVY=[28,47,94],GOLD=[195,154,46],INK=[22,32,58],MUTED=[90,98,118],SOFT=[230,234,243];
+  var logo=null,pdfBlob=null,pdfName="Ficha_de_Informacoes.pdf";
+  fetch("logo.jpg").then(function(r){return r.blob();}).then(function(b){var fr=new FileReader();fr.onload=function(){logo=fr.result;};fr.readAsDataURL(b);}).catch(function(){});
+
+  function br(d){if(!d)return "";var p=d.split("-");return p[2]+"/"+p[1]+"/"+p[0];}
+  function clean(t){return String(t).replace(/[^\u0000-ÿ–—‘’“”•…]/g,"");}
+  function slug(t){return (t||"cliente").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9]+/g,"_").replace(/^_|_$/g,"").slice(0,40);}
+
+  function collect(){
+    var out=[];
+    document.querySelectorAll("[data-sec]").forEach(function(s){
+      var title=s.querySelector("h2").textContent.replace(/^\d+/,"").trim();
+      if(title==="Confirmação")return;
+      var num=(s.querySelector("h2 .n")||{}).textContent||"";
+      var rows=[];
+      s.querySelectorAll("input:not([type=checkbox]),select,textarea").forEach(function(el){
+        var v=el.value.trim();if(!v)return;if(el.type==="date")v=br(v);
+        rows.push({l:el.name,v:v,long:el.tagName==="TEXTAREA"});
+      });
+      s.querySelectorAll("[data-group]").forEach(function(g){
+        var c=[].slice.call(g.querySelectorAll("input:checked")).map(function(i){return i.value;});
+        if(c.length)rows.push({l:g.dataset.group,v:c.join("; "),list:c});
+      });
+      var MAP={"Seus dados":"Dados do cliente","Sua história":"Relato do cliente","Documentos que você tem":"Documentos que o cliente possui"};out.push({n:num,t:MAP[title]||title,rows:rows});
+    });
+    return out;
+  }
+
+  function makePDF(){
+    var J=window.jspdf.jsPDF, doc=new J({unit:"mm",format:"a4"});
+    var W=210,H=297,M=16,y=0,CW=W-2*M;
+    var nome=(document.getElementById("nome").value||"").trim();
+    var now=new Date(), quando=now.toLocaleDateString("pt-BR")+" às "+now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+    function header(first){
+      if(logo){try{doc.addImage(logo,"JPEG",M,8,first?22:14,first?22:14);}catch(e){}}
+      var x=M+(first?27:18);
+      doc.setTextColor.apply(doc,NAVY);doc.setFont("helvetica","bold");doc.setFontSize(first?14:11);doc.text(OFF.nome,x,first?15:13);
+      doc.setFont("helvetica","normal");doc.setFontSize(first?9:8);doc.setTextColor.apply(doc,MUTED);
+      doc.text(OFF.sub,x,first?20.5:17.5);
+      if(first){doc.text(OFF.end,x,25);doc.text("WhatsApp "+OFF.fone+"  ·  "+OFF.email,x,29.2);}
+      doc.setDrawColor.apply(doc,GOLD);doc.setLineWidth(0.8);var ly=first?34:25;doc.line(M,ly,W-M,ly);
+      y=ly+(first?9:8);
+    }
+    function ensure(h){if(y+h>H-18){doc.addPage();header(false);}}
+    header(true);
+    doc.setFont("helvetica","bold");doc.setFontSize(17);doc.setTextColor.apply(doc,NAVY);
+    doc.text("FICHA DE INFORMAÇÕES",W/2,y,{align:"center"});y+=6;
+    doc.setFont("helvetica","normal");doc.setFontSize(9.5);doc.setTextColor.apply(doc,MUTED);
+    doc.text(clean("Cliente: "+(nome||"—")+"   ·   Preenchida em "+quando),W/2,y,{align:"center"});y+=8;
+
+    var prazo=document.getElementById("prazo");
+    if(prazo&&!prazo.hidden){
+      var pl=doc.splitTextToSize(clean(prazo.textContent),CW-8);var ph=pl.length*4.6+6;
+      ensure(ph);doc.setFillColor(253,243,226);doc.setDrawColor(154,91,7);doc.setLineWidth(0.4);doc.rect(M,y,CW,ph,"FD");
+      doc.setFont("helvetica","bold");doc.setFontSize(9.5);doc.setTextColor(122,70,0);doc.text(pl,M+4,y+5.2);y+=ph+5;
+    }
+
+    collect().forEach(function(sec){
+      if(!sec.rows.length)return;
+      ensure(16);
+      doc.setFillColor.apply(doc,SOFT);doc.rect(M,y,CW,7.5,"F");
+      doc.setFillColor.apply(doc,GOLD);doc.rect(M,y,1.4,7.5,"F");
+      doc.setFont("helvetica","bold");doc.setFontSize(10.5);doc.setTextColor.apply(doc,NAVY);
+      doc.text(clean(sec.n+"   "+sec.t.toUpperCase()),M+4,y+5.2);y+=11;
+      sec.rows.forEach(function(r){
+        doc.setFontSize(9.5);
+        if(r.long){
+          var lines=doc.splitTextToSize(clean(r.v),CW);
+          ensure(10);
+          doc.setFont("helvetica","bold");doc.setTextColor.apply(doc,MUTED);doc.text(clean(r.l),M,y);y+=5;
+          doc.setFont("helvetica","normal");doc.setTextColor.apply(doc,INK);
+          lines.forEach(function(ln){ensure(5);doc.text(ln,M,y);y+=4.8;});
+          y+=2.5;
+        }else{
+          var LW=52, vx=M+LW+2, vw=CW-LW-2;
+          var val=r.list?r.list.map(function(i){return "• "+i;}).join("\n"):r.v;
+          var vl=doc.splitTextToSize(clean(val),vw);
+          var ll=doc.splitTextToSize(clean(r.l),LW);
+          var h=Math.max(vl.length,ll.length)*4.8;
+          ensure(h+2);
+          doc.setFont("helvetica","bold");doc.setTextColor.apply(doc,MUTED);doc.text(ll,M,y);
+          doc.setFont("helvetica","normal");doc.setTextColor.apply(doc,INK);doc.text(vl,vx,y);
+          y+=h+1.2;
+          doc.setDrawColor(225,229,238);doc.setLineWidth(0.2);doc.line(M,y-2.6,W-M,y-2.6);
+        }
+      });
+      y+=4;
+    });
+
+    var dec="Declaro que as informações acima são verdadeiras, dentro do que me lembro, e autorizo o escritório Josualdo Vasconcelos Advocacia a utilizar estes dados exclusivamente para analisar e conduzir o meu caso, nos termos da Lei Geral de Proteção de Dados (Lei 13.709/2018).";
+    var dl=doc.splitTextToSize(dec,CW);ensure(dl.length*4.8+22);
+    doc.setFont("helvetica","bold");doc.setFontSize(10.5);doc.setTextColor.apply(doc,NAVY);doc.text("DECLARAÇÃO",M,y);y+=6;
+    doc.setFont("helvetica","normal");doc.setFontSize(9.5);doc.setTextColor.apply(doc,INK);doc.text(dl,M,y);y+=dl.length*4.8+4;
+    doc.setTextColor.apply(doc,MUTED);doc.text(clean("Aceite eletrônico em "+quando+" — "+(nome||"cliente")),M,y);
+
+    var n=doc.getNumberOfPages();
+    for(var i=1;i<=n;i++){doc.setPage(i);doc.setDrawColor(210,214,224);doc.setLineWidth(0.3);doc.line(M,H-12,W-M,H-12);
+      doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor.apply(doc,MUTED);
+      doc.text("Ficha de Informações – Josualdo Vasconcelos Advocacia · "+OFF.fone,M,H-7.5);
+      doc.text("Página "+i+" de "+n,W-M,H-7.5,{align:"right"});}
+    pdfName="Ficha_"+slug(nome)+"_"+now.toISOString().slice(0,10)+".pdf";
+    return doc.output("blob");
+  }
+
+  var st=document.getElementById("st"), sendB=document.getElementById("sendpdf"), dlB=document.getElementById("dlpdf");
+  function say(t){st.textContent=t;st.hidden=false;}
+  function prepare(){
+    if(!window.jspdf){document.getElementById("pdfinfo").textContent="Não foi possível gerar o PDF. Verifique a internet e tente de novo.";return;}
+    try{pdfBlob=makePDF();}catch(e){document.getElementById("pdfinfo").textContent="Erro ao gerar o PDF.";return;}
+    document.getElementById("pdfname").textContent=pdfName;
+    document.getElementById("pdfinfo").textContent="PDF pronto · "+Math.max(1,Math.round(pdfBlob.size/1024))+" KB";
+    sendB.disabled=false;dlB.disabled=false;
+  }
+  function download(){
+    var u=URL.createObjectURL(pdfBlob),a=document.createElement("a");a.href=u;a.download=pdfName;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(u);},4000);
+  }
+  document.getElementById("go").addEventListener("click",function(){
+    setTimeout(function(){if(document.getElementById("review").classList.contains("on")){sendB.disabled=true;dlB.disabled=true;st.hidden=true;
+      var tries=0;(function w(){if(logo||tries>15)prepare();else{tries++;setTimeout(w,150);}})();}},50);
+  });
+  dlB.addEventListener("click",function(){if(pdfBlob){download();say("PDF baixado. Anexe-o na conversa do escritório pelo clipe 📎 do WhatsApp.");}});
+  sendB.addEventListener("click",function(){
+    if(!pdfBlob)return;
+    var nome=(document.getElementById("nome").value||"").trim();
+    var file=new File([pdfBlob],pdfName,{type:"application/pdf"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      navigator.share({files:[file],title:"Ficha de Informações",text:"Ficha de Informações – "+nome}).then(function(){
+        say("Pronto! Se escolheu a conversa do escritório, a ficha foi enviada. Obrigado.");
+      }).catch(function(e){if(e&&e.name==="AbortError")say("Envio cancelado. Toque no botão verde para tentar de novo.");else{download();say("O PDF foi baixado. Anexe-o na conversa do escritório pelo clipe 📎 do WhatsApp.");}});
+    }else{
+      download();
+      var t="Olá, Dr. Josualdo. Preenchi a Ficha de Informações e vou enviar o PDF em seguida. Nome: "+nome;
+      window.open("https://wa.me/5581986152457?text="+encodeURIComponent(t),"_blank","noopener");
+      say("O PDF foi baixado no seu aparelho. Na conversa do WhatsApp que abriu, toque no clipe 📎 e anexe o arquivo "+pdfName+".");
+    }
+  });
+})();
+</script>
+
 </body></html>
